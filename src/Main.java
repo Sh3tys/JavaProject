@@ -54,6 +54,7 @@ public class Main {
                       System.out.println("Veuillez en choisir un existant");
                       break;
             }
+            System.out.println("Test");
         }
     }
 }
