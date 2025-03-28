@@ -38,33 +38,112 @@ public class Main {
             System.out.println("");
 
             System.out.println("1. Voir le menu");
-            System.out.println("2. Ajouter un plat à la commande");
-            System.out.println("3. Voir la commande");
-            System.out.println("4. Quitter");
+            System.out.println("2. Ajouter un plat au Menu");
+            System.out.println("3. Ajouter un plat à la commande");
+            System.out.println("4. Voir la commande");
+            System.out.println("5. Quitter");
 
             int choix = sc.nextInt();
             switch (choix) {
                 case 1:
-                    menu.afficher();
+                    menu.afficherMenu();
                     break;
 
                 case 2:
-                    System.out.println("Entrer le numero du plat :");
-                    int index = sc.nextInt() - 1;
-                    if (index >= 0 && index < menu.listPlats.size()) {
-                        commande.ajouterPlat(menu.listPlats.get(index));
+                    System.out.print("Nom du Plat: ");
+                    String nom = sc.next();
+                    System.out.print("Prix du Plat: ");
+                    double prix = sc.nextDouble();
+                    System.out.print("Type du Plat: ");
+                    String type = sc.next();
+
+                    if (menu.estPresent(menu.getListPlats(), nom )) {
+                        System.out.println("Erreur le plat n'a pas était mis dans le menu, il existe déjà !");
+                    }
+
+                    menu.addPlat(new Plat(nom, prix, type));
+                    System.out.println("Le plat : " + nom + " a correctement était mis dans le menu");
+
+                    break;
+
+                case 3:
+                    System.out.println("Entrer la catégorie du plat (pizza, pates, boisson, dessert) :");
+                    String cat = sc.next();
+
+                    if (cat.equals("pizza")){
+                        System.out.println("Choisir la pizza : \n");
+
+                        System.out.println("---------- Nos Pizza ----------\n");
+                        menu.triePlatParType(menu.getListPlats(), "pizza");
+                        System.out.println("==========================================");
+
+                        System.out.print("Numéro (1-" + menu.creerListeUniqueType(menu.getListPlats(), "pizza").size() + "): ");
+                        int index = sc.nextInt() - 1;
+                        if (index >= 0 && index < menu.creerListeUniqueType(menu.getListPlats(), "pizza").size()) {
+                            commande.ajouterPlat(menu.creerListeUniqueType(menu.getListPlats(), "pizza").get(index));
+                        } else {
+                            System.out.println("Ce plat n'existe pas !");
+                        }
+
+                    } else if (cat.equals("pates")) {
+
+                        System.out.println("Choisir les pates: \n");
+
+                        System.out.println("---------- Nos Pates ----------\n");
+                        menu.triePlatParType(menu.getListPlats(), "pates");
+                        System.out.println("==========================================");
+
+                        System.out.print("Numéro (1-" + menu.creerListeUniqueType(menu.getListPlats(), "pates").size() + "): ");
+                        int index = sc.nextInt() - 1;
+                        if (index >= 0 && index < menu.creerListeUniqueType(menu.getListPlats(), "pates").size()) {
+                            commande.ajouterPlat(menu.creerListeUniqueType(menu.getListPlats(), "pates").get(index));
+                        } else {
+                            System.out.println("Ce plat n'existe pas !");
+                        }
+
+                    } else if (cat.equals("dessert")) {
+
+                        System.out.println("Choisir un dessert : \n");
+
+                        System.out.println("---------- Nos Desserts ----------\n");
+                        menu.triePlatParType(menu.getListPlats(), "dessert");
+                        System.out.println("==========================================");
+
+                        System.out.print("Numéro (1-" + menu.creerListeUniqueType(menu.getListPlats(), "dessert").size() + "): ");
+                        int index = sc.nextInt() - 1;
+                        if (index >= 0 && index < menu.creerListeUniqueType(menu.getListPlats(), "dessert").size()) {
+                            commande.ajouterPlat(menu.creerListeUniqueType(menu.getListPlats(), "dessert").get(index));
+                        } else {
+                            System.out.println("Ce plat n'existe pas !");
+                        }
+
+                    } else if (cat.equals("boisson")) {
+
+                        System.out.println("Choisir une Boisson : \n");
+
+                        System.out.println("---------- Nos Boissons ----------\n");
+                        menu.triePlatParType(menu.getListPlats(), "boisson");
+                        System.out.println("==========================================");
+
+                        System.out.print("Numéro (1-" + menu.creerListeUniqueType(menu.getListPlats(), "boisson").size() + "): ");
+                        int index = sc.nextInt() - 1;
+                        if (index >= 0 && index < menu.creerListeUniqueType(menu.getListPlats(), "boisson").size()) {
+                            commande.ajouterPlat(menu.creerListeUniqueType(menu.getListPlats(), "boisson").get(index));
+                        } else {
+                            System.out.println("Ce plat n'existe pas !");
+                        }
+
                     } else {
-                        System.out.println("Ce plat n'existe pas !");
+                        System.out.println("Erreur du choix de la catégorie");
                     }
                     break;
 
-                 case 3:
+                 case 4:
                      commande.afficher();
                      break;
 
-                 case 4:
+                 case 5:
                      System.out.println("Au plaisir de vous revoir prochainement !");
-                     sc.close();
                      break;
 
                   default:
