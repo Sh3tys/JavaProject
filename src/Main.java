@@ -1,15 +1,59 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import java.awt.*;
+import java.util.*;
+
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        Scanner sc = new Scanner(System.in);
+        Menu menu = new Menu();
+        Commande commande = new Commande();
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+
+        menu.ajouterPlat(new Plat("3 fromages", 10.0, "pizza"));
+        menu.ajouterPlat(new Plat("Pates Carbonara", 15.0, "pates"));
+        menu.ajouterPlat(new Plat("Creme bruler", 25.0, "dessert"));
+        menu.ajouterPlat(new Plat("Oasis", 2.5, "boisson"));
+
+
+        while (true) {
+            System.out.println("Bienvenu dans notre restaurant veuillez choisir ce que vous voulez faire:");
+            System.out.println("");
+            System.out.println("");
+            System.out.println("");
+
+            System.out.println("1. Voir le menu");
+            System.out.println("2. Ajouter un plat à la commande")
+            System.out.println("3. Voir la commande");
+            System.out.println("4. Quitter");
+            int choix = sc.nextInt();
+            switch (choix) {
+                case 1:
+                    menu.afficher();
+                    break;
+
+                case 2:
+                    System.out.println("Entrer le numero du plat :");
+                    int index = sc.nextInt() - 1;
+                    if (index >= 0 && index < menu.plats.size()) {
+                        commande.ajouterPlat(menu.plats.get(index));
+                    } else {
+                        System.out.println("Ce plat n'existe pas !");
+                    }
+                    break;
+
+                 case 3:
+                     commande.afficher();
+                     break;
+
+                 case 4:
+                     System.out.println("Au plaisir de vous revoir prochainement !");
+                     sc.close();
+                     break;
+
+                  default:
+                      System.out.println("Ce choix n'existe pas !");
+                      System.out.println("Veuillez en choisir un existant");
+                      break;
+            }
         }
     }
 }
