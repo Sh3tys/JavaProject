@@ -21,10 +21,10 @@ public class Commande {
     }
 
     public void afficher(){
-        System.out.println("La commande: ");
+        System.out.println("La commande: \n");
         for (Plat plat : listPlats) {
             System.out.println(plat);
         }
-        System.out.println("Le total (en euros): " + total);
+        System.out.println("Le total (en euros): " + total + "€");
     }
 }
