@@ -12,7 +12,7 @@ public class Plat {
 
     @Override
     public String toString() {
-        return nom + " " + prix + " " + type + " " + type;
+        return "Nom: " +nom + " ; Prix: " + prix + "€ ; Type: " + type;
     }
 
 }

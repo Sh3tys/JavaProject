@@ -2,12 +2,13 @@ import java.util.*;
 
 public class Commande {
     List<Plat> listPlats = new ArrayList<>();
-    double total;
+    double total = 0.0;
 
     Commande(){};
-    Commande(Plat plat){
+
+    public void ajouterPlat(Plat plat){
         listPlats.add(plat);
-        total = plat.prix;
+        total += plat.prix;
     }
 
     public void afficher(){
