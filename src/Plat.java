@@ -10,6 +10,8 @@ public class Plat {
         this.type = type;
     }
 
+    System.out.println("Test Back")
+
     @Override
     public String toString() {
         return nom + " " + prix + " " + type + " " + type;
