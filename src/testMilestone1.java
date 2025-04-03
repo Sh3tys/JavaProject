@@ -54,7 +54,7 @@ public class testMilestone1 {
                 case 2:
                     System.out.print("Nom du Plat: ");
                     String nom = sc.next();
-                    System.out.print("Prix du Plat: ");
+                    System.out.print("Prix du Plat (ex: 19,99): ");
                     double prix = sc.nextDouble();
                     System.out.print("Type du Plat: ");
                     String type = sc.next();

@@ -15,7 +15,7 @@ public class BddSetup {
             System.out.println("Base de données 'restaurant' créée avec succès (ou déjà existante).");
 
             // Connexion à la base de données créée
-            try (Connection dbConn = DriverManager.getConnection(DatabaseConnection.getUrl(), DatabaseConnection.getUser(), DatabaseConnection.getPassword());
+            try (Connection dbConn = DriverManager.getConnection(DatabaseConnection.getUrl() + "/restaurant", DatabaseConnection.getUser(), DatabaseConnection.getPassword());
                  Statement dbStmt = dbConn.createStatement()) {
 
                 // Création de la table plats

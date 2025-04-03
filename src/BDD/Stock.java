@@ -5,6 +5,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Stock {
+
+    //=========== Constructeur ================
+    public Stock(){}
+
+
+    //--------- PROGRAMME PRINCIPAL----------------
+    //---------------------------------------------
+
+    //Permet d'ajouter une ingredient avec sa quantité
     public static void ajouterIngredient(String ingredient, int quantite) {
         String query = "INSERT INTO stocks (ingredient, quantite) VALUES (?, ?) " +
                 "ON DUPLICATE KEY UPDATE quantite = quantite + ?";
