@@ -1,4 +1,5 @@
-package BDD;
+package GestionStock;
+import BDD.DatabaseConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

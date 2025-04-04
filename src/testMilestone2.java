@@ -1,6 +1,5 @@
 import Backend.*;
-
-
+import GestionStock.Commande;
 import java.util.*;
 
 public class testMilestone2 {

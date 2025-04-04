@@ -1,4 +1,4 @@
-import Backend.Commande;
+import GestionStock.Commande;
 import Backend.Menu;
 import Backend.Plat;
 import java.util.*;
@@ -146,7 +146,7 @@ public class testMilestone1 {
 
                  case 5:
                      System.out.println("Au plaisir de vous revoir prochainement !");
-                     break;
+                     return;
 
                   default:
                       System.out.println("Ce choix n'existe pas !");
@@ -156,3 +156,5 @@ public class testMilestone1 {
         }
     }
 }
+
+

@@ -1,4 +1,4 @@
-package BDD;
+package GestionEmploye;
 
 public abstract class Employe {
     protected int id;

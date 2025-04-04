@@ -1,4 +1,5 @@
-package Backend;
+package GestionStock;
+import Backend.Plat;
 import java.util.*;
 
 

@@ -1,5 +1,5 @@
-package BDD.metier;
-import BDD.Employe;
+package GestionEmploye.metier;
+import GestionEmploye.Employe;
 
 public class Gerant extends Employe {
 
