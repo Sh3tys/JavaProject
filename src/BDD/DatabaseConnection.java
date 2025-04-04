@@ -5,20 +5,20 @@ import java.sql.SQLException;
 // ou import java.sql.*;
 
 public class DatabaseConnection {
-    private static String url = "jdbc:mysql://localhost:3306"; //Connexion a la base de donnée
+    private static String urlMysql = "jdbc:mysql://localhost:3306"; //Connexion a la base de donnée
     private static String user = "root"; // Utilisation du root pour tout les pouvoirs
     private static String password = "TM26/04/2006"; // mot de passe du root
 
     //=========== Constructeur ================
-    public DatabaseConnection(String url, String user, String password) {
-        this.url = url;
+    public DatabaseConnection(String urlMysql, String user, String password) {
+        this.urlMysql = urlMysql;
         this.user = user;
         this.password = password;
     }
 
     //-------------GETTER & SETTER----------------------
-    public static String getUrl() {return url;}
-    public void setUrl() {this.url = url;}
+    public static String geturlMysql() {return urlMysql;}
+    public void seturlMysql() {this.urlMysql = urlMysql;}
 
     public static String getUser() {return user;}
     public void setUser() {this.user = user;}
@@ -32,7 +32,7 @@ public class DatabaseConnection {
 
     // Permet de se connecter a la base de donnée sur l'url donné ci-dessus
     // renvoi null si la connexion a échoué
-    public static Connection getConnection() {
+    public static Connection getConnection(String url, String user, String password) {
         try {
             return DriverManager.getConnection(url, user, password);
         } catch (SQLException e) {
@@ -46,7 +46,7 @@ public class DatabaseConnection {
     //affiche "Échec de la connexion à la base de donnée", si la connexion à échoué
     public static void main(String[] args) {
         System.out.println("Connexion en cours ...");
-        Connection conn = DatabaseConnection.getConnection();
+        Connection conn = DatabaseConnection.getConnection(DatabaseConnection.geturlMysql(),DatabaseConnection.getUser(), DatabaseConnection.getPassword());
         if (conn != null) {
             System.out.println("Connexion à la base de donnée réussie !");
         } else {

@@ -1,4 +1,5 @@
 package GestionStock;
+import BDD.BddSetup;
 import BDD.DatabaseConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,7 +19,7 @@ public class Stock {
     public static void ajouterIngredient(String ingredient, int quantite) {
         String query = "INSERT INTO stocks (ingredient, quantite) VALUES (?, ?) " +
                 "ON DUPLICATE KEY UPDATE quantite = quantite + ?";
-        try (Connection conn = DatabaseConnection.getConnection();
+        try (Connection conn = DatabaseConnection.getConnection(BddSetup.geturlBdd(),DatabaseConnection.getUser(),DatabaseConnection.getPassword());
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
             stmt.setString(1, ingredient);
@@ -32,7 +33,7 @@ public class Stock {
 
     public static boolean verifierStock(String ingredient, int quantiteRequise) {
         String query = "SELECT quantite FROM stocks WHERE ingredient = ?";
-        try (Connection conn = DatabaseConnection.getConnection();
+        try (Connection conn = DatabaseConnection.getConnection(BddSetup.geturlBdd(),DatabaseConnection.getUser(),DatabaseConnection.getPassword());
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
             stmt.setString(1, ingredient);
@@ -49,7 +50,7 @@ public class Stock {
 
     public static void retirerIngredient(String ingredient, int quantite) {
         String query = "UPDATE stocks SET quantite = quantite - ? WHERE ingredient = ?";
-        try (Connection conn = DatabaseConnection.getConnection();
+        try (Connection conn = DatabaseConnection.getConnection(BddSetup.geturlBdd(),DatabaseConnection.getUser(),DatabaseConnection.getPassword());
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
             stmt.setInt(1, quantite);
@@ -60,4 +61,3 @@ public class Stock {
         }
     }
 }
-
