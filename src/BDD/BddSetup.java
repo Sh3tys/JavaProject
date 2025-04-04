@@ -7,6 +7,11 @@ import java.sql.Statement;
 
 public class BddSetup {
     public static void main(String[] args) {
+
+        //--------- PROGRAMME PRINCIPAL----------------
+        //---------------------------------------------
+
+        //Systeme de try catch pour la création de la data base
         try (Connection conn = DriverManager.getConnection(DatabaseConnection.getUrl(), DatabaseConnection.getUser(), DatabaseConnection.getPassword());
              Statement stmt = conn.createStatement()) {
 
@@ -15,6 +20,7 @@ public class BddSetup {
             System.out.println("Base de données 'restaurant' créée avec succès (ou déjà existante).");
 
             // Connexion à la base de données créée
+            //Systeme de try catch pour la création des tables demandé pour la data base restaurant
             try (Connection dbConn = DriverManager.getConnection(DatabaseConnection.getUrl() + "/restaurant", DatabaseConnection.getUser(), DatabaseConnection.getPassword());
                  Statement dbStmt = dbConn.createStatement()) {
 
