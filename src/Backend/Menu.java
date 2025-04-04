@@ -78,5 +78,15 @@ public class Menu {
         return false;
     }
 
+    public Plat trouverPlatParNom(String nom) {
+        for (Plat plat : listPlats) {
+            if (plat.getNom().equalsIgnoreCase(nom)) {
+                return plat;
+            }
+        }
+        return null; // Si le plat n'est pas trouvé
+    }
+
+
 
 }

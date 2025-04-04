@@ -11,11 +11,10 @@ public class Stock {
     //=========== Constructeur ================
     public Stock(){}
 
-
     //--------- PROGRAMME PRINCIPAL----------------
     //---------------------------------------------
 
-    //Permet d'ajouter une ingredient avec sa quantité
+    // Permet d'ajouter un ingrédient avec sa quantité
     public static void ajouterIngredient(String ingredient, int quantite) {
         String query = "INSERT INTO stocks (ingredient, quantite) VALUES (?, ?) " +
                 "ON DUPLICATE KEY UPDATE quantite = quantite + ?";
@@ -31,6 +30,7 @@ public class Stock {
         }
     }
 
+    // Vérifie si un ingrédient est disponible en quantité suffisante dans le stock
     public static boolean verifierStock(String ingredient, int quantiteRequise) {
         String query = "SELECT quantite FROM stocks WHERE ingredient = ?";
         try (Connection conn = DatabaseConnection.getConnection(BddSetup.geturlBdd(),DatabaseConnection.getUser(),DatabaseConnection.getPassword());
@@ -48,6 +48,7 @@ public class Stock {
         return false;
     }
 
+    // Retire une certaine quantité d'un ingrédient du stock
     public static void retirerIngredient(String ingredient, int quantite) {
         String query = "UPDATE stocks SET quantite = quantite - ? WHERE ingredient = ?";
         try (Connection conn = DatabaseConnection.getConnection(BddSetup.geturlBdd(),DatabaseConnection.getUser(),DatabaseConnection.getPassword());
@@ -56,6 +57,24 @@ public class Stock {
             stmt.setInt(1, quantite);
             stmt.setString(2, ingredient);
             stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Affiche l'état actuel du stock : ingrédients et leurs quantités
+    public static void afficherStock() {
+        String query = "SELECT ingredient, quantite FROM stocks";
+        try (Connection conn = DatabaseConnection.getConnection(BddSetup.geturlBdd(),DatabaseConnection.getUser(),DatabaseConnection.getPassword());
+             PreparedStatement stmt = conn.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+
+            System.out.println("État du stock :");
+            while (rs.next()) {
+                String ingredient = rs.getString("ingredient");
+                int quantite = rs.getInt("quantite");
+                System.out.println(ingredient + ": " + quantite + " unités");
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
