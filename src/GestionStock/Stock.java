@@ -54,7 +54,7 @@ public class Stock {
         try (Connection conn = DatabaseConnection.getConnection(BddSetup.geturlBdd(),DatabaseConnection.getUser(),DatabaseConnection.getPassword());
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
-            stmt.setInt(1, quantite);
+            stmt.setInt(1, quantite  + 1);
             stmt.setString(2, ingredient);
             stmt.executeUpdate();
         } catch (SQLException e) {

@@ -1,6 +1,6 @@
 import GestionStock.Commande;
 import Backend.Menu;
-import Backend.Plat;
+import BDD.*;
 import GestionStock.Stock;
 import GestionEmploye.metier.Cuisinier;
 import GestionEmploye.metier.Gerant;
@@ -9,6 +9,10 @@ import java.util.*;
 
 public class testMilestone2 {
     public static void main(String[] args) {
+
+        BddSetup.createDatabase();
+        BddSetup.createTables();
+
         Scanner sc = new Scanner(System.in);
         Menu menu = new Menu();
         Commande commande = new Commande();
@@ -36,8 +40,9 @@ public class testMilestone2 {
             System.out.println("2. Ajouter un plat au Menu");
             System.out.println("3. Ajouter un plat à la commande");
             System.out.println("4. Voir la commande");
-            System.out.println("5. Demander les stocks");
-            System.out.println("6. Quitter");
+            System.out.println("5. Valider commande");
+            System.out.println("6. Demander les stocks");
+            System.out.println("7. Quitter");
 
             int choix = sc.nextInt();
             switch (choix) {

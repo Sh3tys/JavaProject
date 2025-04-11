@@ -32,6 +32,8 @@ public class Plat {
         this.ingredients = ingredients;
     }
 
+
+
     public void ajouterIngredient(String ingredient, int quantite) {
         ingredients.put(ingredient, quantite);
     }
