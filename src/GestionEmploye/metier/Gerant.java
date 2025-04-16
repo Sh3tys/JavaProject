@@ -15,12 +15,12 @@ public class Gerant extends Employe {
     }
 
     // Ajouter des ingrédients au stock
-    public static void ajouterIngredients(String ingredient, int quantite) {
+    public static void ajouterIngredients(String ingredient, double quantite) {
         System.out.println("Le gérant ajoute " + quantite + " unités de " + ingredient + " au stock.");
         Stock.ajouterIngredient(ingredient, quantite);
     }
 
-    public static void ajouterIngredientPlat(Plat plat, String ingredient, int quantite) {
+    public static void ajouterIngredientPlat(Plat plat, String ingredient, double quantite) {
         System.out.println("Test quantité" + quantite);
         plat.ajouterIngredient(ingredient.trim(), quantite);  // Ajouter l'ingrédient avec quantite
     }
@@ -28,7 +28,7 @@ public class Gerant extends Employe {
     // Ajouter un plat au menu si le plat n'existe pas déjà
     public static void ajoutPlat(Menu menu, String nom, double prix, String type) {
         String ingredients = "";
-        int quantite = 0;
+        double quantite = 0.0;
 
         if (platEstPresent(menu.getListPlats(), nom)) {
             System.out.println("Erreur : le plat existe déjà dans le menu !");
@@ -45,7 +45,7 @@ public class Gerant extends Employe {
                 }
 
                 System.out.print("La quantité de cette ingrédient : ");
-                quantite = sc.nextInt();
+                quantite = sc.nextDouble();
 
                 Gerant.ajouterIngredientPlat(plat, ingredients.trim(), quantite);
 

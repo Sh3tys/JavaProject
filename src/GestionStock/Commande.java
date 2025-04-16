@@ -29,11 +29,11 @@ public class Commande {
 
     // Méthode pour ajouter un plat à la commande
     public void ajouterPlat(Plat plat) {
-        Map<String, Integer> ingredients = plat.getIngredients();
+        Map<String, Double> ingredients = plat.getIngredients();
 
         // Vérification des ingrédients en stock
         boolean tousDisponibles = true;
-        for (Map.Entry<String, Integer> entry : ingredients.entrySet()) {
+        for (Map.Entry<String, Double> entry : ingredients.entrySet()) {
             if (!Stock.verifierStock(entry.getKey(), entry.getValue())) {
                 System.out.println("❌ Commande refusée : ingrédient manquant ou insuffisant : " + entry.getKey());
                 tousDisponibles = false;
@@ -44,7 +44,7 @@ public class Commande {
         // Si tous les ingrédients sont disponibles, on ajoute le plat et met à jour le stock
         if (tousDisponibles) {
             // Mise à jour du stock en retirant les ingrédients nécessaires
-            for (Map.Entry<String, Integer> entry : ingredients.entrySet()) {
+            for (Map.Entry<String, Double> entry : ingredients.entrySet()) {
                 Stock.retirerIngredient(entry.getKey(), entry.getValue());
             }
 

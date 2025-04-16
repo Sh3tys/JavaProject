@@ -7,7 +7,7 @@ public class Plat {
     private String nom;
     private double prix;
     private String type;
-    private Map<String, Integer> ingredients = new HashMap<>();
+    private Map<String, Double> ingredients = new HashMap<>();
 
     //=========== Constructeurs ================
     Plat() {}
@@ -27,14 +27,14 @@ public class Plat {
     public String getType() { return type; }
     public void setType(String type) { this.type = type; }
 
-    public Map<String, Integer> getIngredients() { return ingredients; }
-    public void setIngredients(Map<String, Integer> ingredients) {
+    public Map<String, Double> getIngredients() { return ingredients; }
+    public void setIngredients(Map<String, Double> ingredients) {
         this.ingredients = ingredients;
     }
 
 
 
-    public void ajouterIngredient(String ingredient, int quantite) {
+    public void ajouterIngredient(String ingredient, double quantite) {
         ingredients.put(ingredient, quantite);
     }
 

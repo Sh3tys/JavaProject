@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class BddSetup {
-    private static final String DATABASE_NAME = "restaurant";
+    private static final String DATABASE_NAME = "Bella_Tavola";
 
     BddSetup() {}
 

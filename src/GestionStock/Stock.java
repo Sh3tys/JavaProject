@@ -15,15 +15,15 @@ public class Stock {
     //---------------------------------------------
 
     // Permet d'ajouter un ingrédient avec sa quantité
-    public static void ajouterIngredient(String ingredient, int quantite) {
+    public static void ajouterIngredient(String ingredient, double quantite) {
         String query = "INSERT INTO stocks (ingredient, quantite) VALUES (?, ?) " +
                 "ON DUPLICATE KEY UPDATE quantite = quantite + ?";
         try (Connection conn = DatabaseConnection.getConnection(BddSetup.geturlBdd(),DatabaseConnection.getUser(),DatabaseConnection.getPassword());
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
             stmt.setString(1, ingredient);
-            stmt.setInt(2, quantite);
-            stmt.setInt(3, quantite);
+            stmt.setDouble(2, quantite);
+            stmt.setDouble(3, quantite);
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -31,7 +31,7 @@ public class Stock {
     }
 
     // Vérifie si un ingrédient est disponible en quantité suffisante dans le stock
-    public static boolean verifierStock(String ingredient, int quantiteRequise) {
+    public static boolean verifierStock(String ingredient, double quantiteRequise) {
         String query = "SELECT quantite FROM stocks WHERE ingredient = ?";
         try (Connection conn = DatabaseConnection.getConnection(BddSetup.geturlBdd(),DatabaseConnection.getUser(),DatabaseConnection.getPassword());
              PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -49,12 +49,12 @@ public class Stock {
     }
 
     // Retire une certaine quantité d'un ingrédient du stock
-    public static void retirerIngredient(String ingredient, int nbrIngredient) {
+    public static void retirerIngredient(String ingredient, double nbrIngredient) {
         String query = "UPDATE stocks SET quantite = quantite - ? WHERE ingredient = ?";
         try (Connection conn = DatabaseConnection.getConnection(BddSetup.geturlBdd(),DatabaseConnection.getUser(),DatabaseConnection.getPassword());
              PreparedStatement stmt = conn.prepareStatement(query)) {
             System.out.println("Test quantité" + nbrIngredient + " " + ingredient);
-            stmt.setInt(1, nbrIngredient);
+            stmt.setDouble(1, nbrIngredient/2);
             stmt.setString(2, ingredient);
             stmt.executeUpdate();
         } catch (SQLException e) {

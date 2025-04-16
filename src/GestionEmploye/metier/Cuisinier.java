@@ -1,11 +1,7 @@
 package GestionEmploye.metier;
 import GestionEmploye.Employe;
-import GestionStock.Stock;
-import GestionStock.Commande;
+import GestionStock.*;
 import Backend.Plat;
-
-import javax.xml.transform.Source;
-import java.sql.SQLOutput;
 import java.util.Map;
 
 public class Cuisinier extends Employe {
@@ -21,11 +17,11 @@ public class Cuisinier extends Employe {
         // Vérification des stocks pour chaque plat de la commande
         for (Plat plat : commande.getListPlats()) {
             System.out.println("Vérification du plat : " + plat.getNom());
-            Map<String, Integer> ingredients = plat.getIngredients();
+            Map<String, Double> ingredients = plat.getIngredients();
 
-            for (Map.Entry<String, Integer> entry : ingredients.entrySet()) {
+            for (Map.Entry<String, Double> entry : ingredients.entrySet()) {
                 String nomIngredient = entry.getKey();
-                int quantiteRequise = entry.getValue();
+                double quantiteRequise = entry.getValue();
 
                 if (!Stock.verifierStock(nomIngredient, quantiteRequise)) {
                     System.out.println("Stock insuffisant pour l'ingrédient : " + nomIngredient +
@@ -45,12 +41,12 @@ public class Cuisinier extends Employe {
 
             for (Plat plat : commande.getListPlats()) {
                 System.out.println(plat);
-                Map<String, Integer> ingredients = plat.getIngredients();
+                Map<String, Double> ingredients = plat.getIngredients();
                 System.out.println(ingredients);
 
-                for (Map.Entry<String, Integer> entry : ingredients.entrySet()) {
+                for (Map.Entry<String, Double> entry : ingredients.entrySet()) {
                     String nomIngredient = entry.getKey();
-                    int quantite = entry.getValue();
+                    double quantite = entry.getValue();
 
                     Stock.retirerIngredient(nomIngredient, quantite);
                     System.out.println("Ingrédient retiré : " + nomIngredient + " x" + quantite);

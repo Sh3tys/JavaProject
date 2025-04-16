@@ -1,10 +1,7 @@
-import GestionStock.Commande;
-import Backend.Menu;
+import GestionStock.*;
 import BDD.*;
-import GestionStock.Stock;
-import GestionEmploye.metier.Cuisinier;
-import GestionEmploye.metier.Gerant;
-import GestionEmploye.metier.Serveur;
+import GestionEmploye.metier.*;
+import Backend.Menu;
 import java.util.*;
 
 public class testMilestone2 {
@@ -24,10 +21,10 @@ public class testMilestone2 {
         Gerant gerant = new Gerant(3, "Marie");
 
         // Initialiser le stock avec des ingrédients
-        Gerant.ajouterIngredients("Pâte", 10);
+        Gerant.ajouterIngredients("Pate", 10);
         Gerant.ajouterIngredients("Tomate", 5);
         Gerant.ajouterIngredients("Fromage", 3);
-        Gerant.ajouterIngredients("Crème", 7);
+        Gerant.ajouterIngredients("Creme", 7);
         Gerant.ajouterIngredients("Miel", 6);
         Gerant.ajouterIngredients("Oasis", 10);
 
