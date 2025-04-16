@@ -49,12 +49,12 @@ public class Stock {
     }
 
     // Retire une certaine quantité d'un ingrédient du stock
-    public static void retirerIngredient(String ingredient, int quantite) {
+    public static void retirerIngredient(String ingredient, int nbrIngredient) {
         String query = "UPDATE stocks SET quantite = quantite - ? WHERE ingredient = ?";
         try (Connection conn = DatabaseConnection.getConnection(BddSetup.geturlBdd(),DatabaseConnection.getUser(),DatabaseConnection.getPassword());
              PreparedStatement stmt = conn.prepareStatement(query)) {
-
-            stmt.setInt(1, quantite  + 1);
+            System.out.println("Test quantité" + nbrIngredient + " " + ingredient);
+            stmt.setInt(1, nbrIngredient);
             stmt.setString(2, ingredient);
             stmt.executeUpdate();
         } catch (SQLException e) {

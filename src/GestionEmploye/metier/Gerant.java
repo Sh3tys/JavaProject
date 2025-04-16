@@ -20,12 +20,16 @@ public class Gerant extends Employe {
         Stock.ajouterIngredient(ingredient, quantite);
     }
 
-    public static void ajouterIngredientPlat(Plat plat, String ingredient) {
-        plat.ajouterIngredient(ingredient.trim(), 1);  // Ajouter l'ingrédient avec quantité de 1
+    public static void ajouterIngredientPlat(Plat plat, String ingredient, int quantite) {
+        System.out.println("Test quantité" + quantite);
+        plat.ajouterIngredient(ingredient.trim(), quantite);  // Ajouter l'ingrédient avec quantite
     }
 
     // Ajouter un plat au menu si le plat n'existe pas déjà
     public static void ajoutPlat(Menu menu, String nom, double prix, String type) {
+        String ingredients = "";
+        int quantite = 0;
+
         if (platEstPresent(menu.getListPlats(), nom)) {
             System.out.println("Erreur : le plat existe déjà dans le menu !");
         } else {
@@ -33,13 +37,18 @@ public class Gerant extends Employe {
             menu.addPlat(plat);  // Ajouter le plat à la liste du menu
             System.out.println("Le plat " + nom + " a été ajouté au menu !");
 
-            if (type.equals("pizza")) {
-                System.out.print("Ingrédients nécessaires pour ce plat (séparés par des virgules) : ");
-                String ingredients = sc.next();
-                String[] ingredientList = ingredients.split(",");
-                for (String ingredient : ingredientList) {
-                    Gerant.ajouterIngredientPlat(plat, ingredient.trim());
+            while (ingredients != "fin") {
+                System.out.print("Ingrédient nécessaires pour ce plat (mettre 'fin' si finis): ");
+                ingredients = sc.next();
+                if (ingredients.equals("fin")) {
+                    break;
                 }
+
+                System.out.print("La quantité de cette ingrédient : ");
+                quantite = sc.nextInt();
+
+                Gerant.ajouterIngredientPlat(plat, ingredients.trim(), quantite);
+
             }
         }
     }

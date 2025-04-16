@@ -6,7 +6,7 @@ public class MyJDBC {
             Connection connection = DriverManager.getConnection(
                     "jdbc:mysql://127.0.0.1:3306/login_shema",
                     "root",
-                    "TM26/04/2006"
+                    "" // PASSWORD ROOT
             );
 
             Statement statement = connection.createStatement();

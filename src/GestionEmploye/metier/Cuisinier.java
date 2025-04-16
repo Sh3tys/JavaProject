@@ -4,6 +4,8 @@ import GestionStock.Stock;
 import GestionStock.Commande;
 import Backend.Plat;
 
+import javax.xml.transform.Source;
+import java.sql.SQLOutput;
 import java.util.Map;
 
 public class Cuisinier extends Employe {
@@ -13,33 +15,57 @@ public class Cuisinier extends Employe {
     }
 
     public void preparerCommande(Commande commande) {
+        // Supposons que les stocks sont suffisants au départ
         boolean stockSuffisant = true;
 
-        // Vérifier les stocks avant préparation
+        // Vérification des stocks pour chaque plat de la commande
         for (Plat plat : commande.getListPlats()) {
+            System.out.println("Vérification du plat : " + plat.getNom());
             Map<String, Integer> ingredients = plat.getIngredients();
+
             for (Map.Entry<String, Integer> entry : ingredients.entrySet()) {
-                if (!Stock.verifierStock(entry.getKey(), entry.getValue())) {
-                    System.out.println("Pas assez d'" + entry.getKey() + " pour préparer " + plat.getNom());
+                String nomIngredient = entry.getKey();
+                int quantiteRequise = entry.getValue();
+
+                if (!Stock.verifierStock(nomIngredient, quantiteRequise)) {
+                    System.out.println("Stock insuffisant pour l'ingrédient : " + nomIngredient +
+                            " (besoin de " + quantiteRequise + ")");
                     stockSuffisant = false;
-                    break;
+                    break; // Arrête la vérification dès qu’un ingrédient manque
                 }
+            }
+            if (!stockSuffisant) {
+                break;
             }
         }
 
+        // Si le stock est suffisant, retirer TOUS les ingrédients
         if (stockSuffisant) {
-            // Retirer les ingrédients du stock si tout est bon
+            System.out.println("Tous les ingrédients sont disponibles. Préparation en cours...");
+
             for (Plat plat : commande.getListPlats()) {
+                System.out.println(plat);
                 Map<String, Integer> ingredients = plat.getIngredients();
+                System.out.println(ingredients);
+
                 for (Map.Entry<String, Integer> entry : ingredients.entrySet()) {
-                    Stock.retirerIngredient(entry.getKey(), entry.getValue());
+                    String nomIngredient = entry.getKey();
+                    int quantite = entry.getValue();
+
+                    Stock.retirerIngredient(nomIngredient, quantite);
+                    System.out.println("Ingrédient retiré : " + nomIngredient + " x" + quantite);
                 }
             }
-            System.out.println("Commande préparée, total à payer : " + commande.getTotal() + "€");
+
+            System.out.println("Commande préparée avec succès !");
+            System.out.println("Total à payer : " + commande.getTotal() + "€");
+
         } else {
-            System.out.println("Commande annulée, stock insuffisant.");
+            System.out.println("Commande annulée. Stock insuffisant pour un ou plusieurs plats.");
         }
     }
+
+
 
     @Override
     public void effectuerTache(Commande commande) {

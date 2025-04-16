@@ -31,6 +31,10 @@ public class testMilestone2 {
         Gerant.ajouterIngredients("Miel", 6);
         Gerant.ajouterIngredients("Oasis", 10);
 
+
+        //Initialise les plats
+        Gerant.ajoutPlat(menu, "pizaa", 5.99, "pizza");
+
         while (true) {
             System.out.println("");
             System.out.println("Bienvenue dans notre restaurant, veuillez choisir ce que vous voulez faire :");
@@ -79,6 +83,7 @@ public class testMilestone2 {
                         System.out.print("Votre commande est en préparation...");
                         cuisinier.preparerCommande(commande); // Le cuisinier prépare la commande
                         System.out.println("Votre commande est prête !");
+                        commande = new Commande();
                     } else {
                         System.out.println("Votre commande n'est pas prise en charge. Vous pouvez continuer à commander !");
                     }
