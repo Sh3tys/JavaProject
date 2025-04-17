@@ -1,5 +1,6 @@
 package GestionEmploye.metier;
 
+import BDD.SaveEmploye.BddEmploye;
 import BDD.SavePlat.BddPlat;
 import GestionEmploye.*;
 import GestionStock.*;
@@ -18,6 +19,10 @@ public class Gerant extends Employe {
     public static void ajouterIngredients(String ingredient, double quantite) {
         System.out.println("Le gérant ajoute " + quantite + " unités de " + ingredient + " au stock.");
         Stock.ajouterIngredient(ingredient, quantite);
+    }
+
+    public static void deleteIngredient(String ingredient, double quantite) {
+        Stock.retirerIngredient(ingredient, quantite);
     }
 
     public static void ajouterIngredientPlat(Plat plat, String ingredient, double quantite) {
@@ -77,6 +82,10 @@ public class Gerant extends Employe {
         String nom = sc.nextLine();
 
         BddPlat.supprimerPlatParNom(nom);
+    }
+
+    public static void afficherEmploye(){
+        BddEmploye.afficherTousLesEmployes();
     }
 
     @Override

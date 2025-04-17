@@ -64,4 +64,18 @@ public class BddEmploye {
 
         return employes;
     }
+
+    public static void afficherTousLesEmployes() {
+        List<Employe> employes = chargerEmployes();
+
+        if (employes.isEmpty()) {
+            System.out.println("Aucun employé trouvé dans la base de données.");
+        } else {
+            System.out.println("Liste des employés :");
+            for (Employe employe : employes) {
+                System.out.println("Nom : " + employe.getNom() + ", Prénom : " + employe.getPrenom() + ", Rôle : " + employe.getRole());
+            }
+        }
+    }
+
 }

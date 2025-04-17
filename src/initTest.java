@@ -15,7 +15,7 @@ public class initTest {
         BddSetup.createDatabase();
         BddSetup.createTables();
 
-        Serveur serveur = new Serveur("Vivi","Tlaire");
+        Serveur serveur = new Serveur("Viral","Diego");
         BddEmploye.ajouterEmploye(serveur);
 
         Cuisinier cuisinier = new Cuisinier( "Luc","Yluk");
