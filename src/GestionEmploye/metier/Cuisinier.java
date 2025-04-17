@@ -7,8 +7,8 @@ import java.util.Map;
 
 public class Cuisinier extends Employe {
 
-    public Cuisinier(int id, String nom) {
-        super(id, nom, "Cuisinier");
+    public Cuisinier(String nom, String prenom) {
+        super(nom, prenom, "Cuisinier");
     }
 
     public boolean preparerCommande(Commande commande) {

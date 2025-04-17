@@ -2,14 +2,10 @@
 
 ## Choses à faire
 
-> [IMPORTANT]  
-> Pour les saves, mettre des dossiers :  
-> SaveCommande, SaveEmploye, SavePlat et SaveStock,  
-> dans le dossier BDD.  
-> (Dénaturaliser le fichier `Stock.java` pour y intégrer les requêtes SQL.)
-
-- [ ] Sauvegarde de l'historique des commandes
-- [ ] Sauvegarde des employés
-- [ ] Sauvegarde des plats
-- [ ] Bug : la suppression d'ingrédients
+- [x] Sauvegarde de l'historique des commandes
+- [x] Sauvegarde des employés
+- [x] Supprimer des plats du menu
+- [ ] Supprimer des ingrédients
+- [x] Sauvegarde des plats
+- [x] Bug : la suppression d'ingrédients
 - [ ] Fin

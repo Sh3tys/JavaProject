@@ -8,64 +8,34 @@ import GestionStock.*;
 
 public class BddCommande {
     public static void sauvegarderDansBdd(Commande commande) {
-        // SQL pour insérer une commande
-        String insertCommandeSQL = "INSERT INTO commandes (date_commande) VALUES (NOW())";
-        String insertCommandePlatSQL = "INSERT INTO commande_plat (commande_id, plat_id) VALUES (?, ?)";
-        String insertIngredientSQL = "INSERT INTO plat_ingredients (plat_id, ingredient, quantite_requise) VALUES (?, ?, ?)";
+        Connection conn = DatabaseConnection.getConnection(
+                BddSetup.geturlBdd(),
+                DatabaseConnection.getUser(),
+                DatabaseConnection.getPassword());
 
-        try (Connection conn = DatabaseConnection.getConnection(
-                BddSetup.geturlBdd(), DatabaseConnection.getUser(), DatabaseConnection.getPassword())) {
+        try {
+            // Insère la commande
+            String insertCommandeSQL = "INSERT INTO commandes (date_commande) VALUES (NOW())";
+            PreparedStatement psCommande = conn.prepareStatement(insertCommandeSQL, Statement.RETURN_GENERATED_KEYS);
+            psCommande.executeUpdate();
 
-            conn.setAutoCommit(false); // Pour rollback en cas d’erreur
-
-            // 1. Insertion de la commande
-            int commandeId;
-            try (PreparedStatement stmtCommande = conn.prepareStatement(insertCommandeSQL, Statement.RETURN_GENERATED_KEYS)) {
-                stmtCommande.executeUpdate();
-                ResultSet rs = stmtCommande.getGeneratedKeys();
-                if (rs.next()) {
-                    commandeId = rs.getInt(1);
-                } else {
-                    throw new SQLException("Erreur lors de la récupération de l'ID de la commande.");
-                }
+            // Récupère l'ID de la commande insérée
+            ResultSet rs = psCommande.getGeneratedKeys();
+            int commandeId = -1;
+            if (rs.next()) {
+                commandeId = rs.getInt(1);
             }
 
-            // ✅ On utilise ici commande.getListPlats()
+            // Insère les plats liés à la commande
+            String insertCommandePlatSQL = "INSERT INTO commande_plat (commande_id, plat_id) VALUES (?, ?)";
+            PreparedStatement psCommandePlat = conn.prepareStatement(insertCommandePlatSQL);
             for (Plat plat : commande.getListPlats()) {
-                // Récupération de l'ID du plat (si ce n'est pas déjà disponible dans Plat)
-                int platId;
-                try (PreparedStatement stmtPlat = conn.prepareStatement("SELECT id FROM plats WHERE nom = ?")) {
-                    stmtPlat.setString(1, plat.getNom());
-                    ResultSet rsPlat = stmtPlat.executeQuery();
-                    if (rsPlat.next()) {
-                        platId = rsPlat.getInt("id");
-                    } else {
-                        throw new SQLException("Plat non trouvé : " + plat.getNom());
-                    }
-                }
-
-                // Insertion de la relation entre commande et plat
-                try (PreparedStatement stmtPlat = conn.prepareStatement(insertCommandePlatSQL)) {
-                    stmtPlat.setInt(1, commandeId);
-                    stmtPlat.setInt(2, platId);  // Utilisation de l'ID du plat
-                    stmtPlat.executeUpdate();
-                }
-
-                // Ingrédients du plat
-                for (Map.Entry<String, Double> entry : plat.getIngredients().entrySet()) {
-                    // Insertion des ingrédients associés au plat
-                    try (PreparedStatement stmtIngredient = conn.prepareStatement(insertIngredientSQL)) {
-                        stmtIngredient.setInt(1, platId);  // Utilisation de l'ID du plat
-                        stmtIngredient.setString(2, entry.getKey());  // Nom de l'ingrédient
-                        stmtIngredient.setDouble(3, entry.getValue());  // Quantité requise
-                        stmtIngredient.executeUpdate();
-                    }
-                }
+                psCommandePlat.setInt(1, commandeId);
+                psCommandePlat.setInt(2, plat.getId()); // Assure-toi que Plat a bien un getId()
+                psCommandePlat.executeUpdate();
             }
 
-            conn.commit();
-            System.out.println("✅ Commande sauvegardée avec succès.");
-
+            System.out.println("Commande sauvegardée avec succès !");
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -1,5 +1,6 @@
 package GestionEmploye.metier;
 
+import BDD.SavePlat.BddPlat;
 import GestionEmploye.*;
 import GestionStock.*;
 import Backend.*;
@@ -9,8 +10,8 @@ import java.util.*;
 public class Gerant extends Employe {
     public static Scanner sc = new Scanner(System.in);
 
-    public Gerant(int id, String nom) {
-        super(id, nom, "Gérant");
+    public Gerant(String nom, String prenom) {
+        super(nom, prenom,"Gerant");
     }
 
     // Ajouter des ingrédients au stock
@@ -34,7 +35,7 @@ public class Gerant extends Employe {
         } else {
             Plat plat = new Plat(id, nom, prix, type,null);
             menu.addPlat(plat);  // Ajouter le plat à la liste du menu
-            System.out.println("Le plat " + nom + " a été ajouté au menu !");
+
 
             while (ingredients != "fin") {
                 System.out.print("Ingrédient nécessaires pour ce plat (mettre 'fin' si finis): ");
@@ -49,6 +50,8 @@ public class Gerant extends Employe {
                 Gerant.ajouterIngredientPlat(plat, ingredients.trim(), quantite);
 
             }
+            BddPlat.sauvegarderPlat(plat); // Sauvegarde le plat dans la base de donnée
+
         }
     }
 
@@ -67,9 +70,18 @@ public class Gerant extends Employe {
         Stock.afficherStock();
     }
 
+    public void supprimerPlatParNom(Menu menu) {
+        Serveur.afficherMenu(menu);
+
+        System.out.println("Entrez le nom du plat à supprimer :");
+        String nom = sc.nextLine();
+
+        BddPlat.supprimerPlatParNom(nom);
+    }
+
     @Override
     public void effectuerTache(Commande commande) {
         // Le gérant effectue la tâche de gestion (ajouter des plats, vérifier les stocks, etc.)
-        System.out.println(nom + " effectue sa tâche.");
+        System.out.println(nom +" " + prenom + " est :" + role);
     }
 }

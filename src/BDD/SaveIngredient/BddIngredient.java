@@ -51,7 +51,7 @@ public class BddIngredient {
                 DatabaseConnection.getPassword());
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
-            stmt.setDouble(1, nbrIngredient);
+            stmt.setDouble(1, nbrIngredient/2);
             stmt.setString(2, ingredient);
             stmt.executeUpdate();
         } catch (SQLException e) {

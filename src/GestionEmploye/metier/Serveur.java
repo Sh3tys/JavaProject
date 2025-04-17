@@ -8,9 +8,10 @@ import java.util.Scanner;
 
 public class Serveur extends Employe {
 
-    public Serveur(int id, String nom) {
-        super(id, nom, "Serveur");
+    public Serveur(String nom, String prenom) {
+        super(nom, prenom, "Serveur");
     }
+
 
     public void prendreCommande(Menu menu, Commande commande) {
         System.out.println(nom + " prend une commande.");
@@ -29,7 +30,7 @@ public class Serveur extends Employe {
         }
     }
 
-    public void afficherMenu(Menu menu) {
+    public static void afficherMenu(Menu menu) {
         menu.afficherMenu();
     }
 
@@ -44,6 +45,6 @@ public class Serveur extends Employe {
     @Override
     public void effectuerTache(Commande commande) {
         // Le serveur effectue la tâche de prendre la commande
-        System.out.println(nom + " effectue sa tâche.");
+        System.out.println(nom +" " + prenom + " est :" + role);
     }
 }

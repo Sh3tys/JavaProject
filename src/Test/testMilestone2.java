@@ -1,3 +1,5 @@
+package Test;
+
 import GestionStock.*;
 import BDD.*;
 import GestionEmploye.metier.*;
@@ -5,6 +7,7 @@ import Backend.*;
 import java.util.*;
 
 public class testMilestone2 {
+    /*
     public static void main(String[] args) {
 
         BddSetup.createDatabase();
@@ -16,9 +19,11 @@ public class testMilestone2 {
         Stock stock = new Stock();
 
         // Initialiser les employés
-        Serveur serveur = new Serveur(1, "Jean");
-        Cuisinier cuisinier = new Cuisinier(2, "Luc");
-        Gerant gerant = new Gerant(3, "Marie");
+
+        Serveur serveur = new Serveur("Jean");
+        Cuisinier cuisinier = new Cuisinier("Luc");
+        Gerant gerant = new Gerant("Marie");
+
 
         // Initialiser le stock avec des ingrédients
         Gerant.ajouterIngredients("Pate", 10);
@@ -100,4 +105,5 @@ public class testMilestone2 {
             }
         }
     }
+    */
 }

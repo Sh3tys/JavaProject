@@ -1,3 +1,4 @@
+import GestionEmploye.Employe;
 import GestionStock.*;
 import BDD.*;
 import GestionEmploye.metier.*;
@@ -5,36 +6,36 @@ import Backend.*;
 import BDD.SaveCommande.*;
 import BDD.SaveIngredient.*;
 import BDD.SaveEmploye.*;
-import BDD.SavePlat.BddPlat;
+import BDD.SavePlat.*;
+
 import java.util.*;
 
 public class testMilestone3 {
     public static void main(String[] args) {
-
-        BddSetup.createDatabase();
-        BddSetup.createTables();
 
         Scanner sc = new Scanner(System.in);
         Menu menu = new Menu();
         Commande commande = new Commande();
         Stock stock = new Stock();
 
-        // Initialiser les employés
-        Serveur serveur = new Serveur(1, "Jean");
-        Cuisinier cuisinier = new Cuisinier(2, "Luc");
-        Gerant gerant = new Gerant(3, "Marie");
-
-        // Initialiser le stock avec des ingrédients
-        Gerant.ajouterIngredients("Pate", 100);
-        Gerant.ajouterIngredients("Tomate", 100);
-        Gerant.ajouterIngredients("Fromage", 100);
-        Gerant.ajouterIngredients("Creme", 100);
-        Gerant.ajouterIngredients("Miel", 100);
-        Gerant.ajouterIngredients("Oasis", 100);
+        Serveur serveur = null;
+        Cuisinier cuisinier = null;
+        Gerant gerant = null;
 
 
-        //Initialise les plats
-        BddPlat.sauvegarderPlat(Gerant.ajoutPlat(menu, 1, "pizaa", 5.99, "pizza"));
+        List<Employe> listeEmployes = BddEmploye.chargerEmployes();
+
+        for (Employe employe : listeEmployes) {
+            if (employe instanceof Serveur) {
+                serveur = (Serveur) employe;
+            } else if (employe instanceof Cuisinier) {
+                cuisinier = (Cuisinier) employe;
+            } else if (employe instanceof Gerant) {
+                gerant = (Gerant) employe;
+            }
+        }
+
+        BddPlat.chargeMenu(menu); //Permet de charger les plats de la bdd avec leur ingrédients
 
         while (true) {
             System.out.println("");
@@ -43,16 +44,20 @@ public class testMilestone3 {
 
             System.out.println("1. Voir le menu");
             System.out.println("2. Ajouter un plat au Menu");
-            System.out.println("3. Ajouter un plat à la commande");
-            System.out.println("4. Voir la commande");
-            System.out.println("5. Valider commande");
-            System.out.println("6. Demander les stocks");
-            System.out.println("7. Quitter");
+            System.out.println("3. Supprimer un plat à la commande");
+            System.out.println("4. Ajouter un plat à la commande");
+            System.out.println("5. Voir la commande");
+            System.out.println("6. Valider commande");
+            System.out.println("7. Demander les stocks");
+            System.out.println("8. Quitter");
 
             int choix = sc.nextInt();
             switch (choix) {
                 case 1:
-                    serveur.afficherMenu(menu);  // Le serveur affiche le menu
+                    if (serveur != null) {
+                        serveur.afficherMenu(menu);  // Le serveur affiche le menu
+                    }
+
                     break;
 
                 case 2:
@@ -71,14 +76,18 @@ public class testMilestone3 {
                     break;
 
                 case 3:
-                    serveur.prendreCommande(menu, commande);  // Le serveur prend la commande
+                    gerant.supprimerPlatParNom(menu); // Le serveur prend la commande
                     break;
 
                 case 4:
+                    serveur.prendreCommande(menu, commande);  // Le serveur prend la commande
+                    break;
+
+                case 5:
                     serveur.afficherCommande(commande);  // Afficher la Commande
                     break;
 
-                case 5: // Confirmer la commande
+                case 6: // Confirmer la commande
                     serveur.afficherCommande(commande);
                     System.out.print("Confirmez votre commande (oui/non) : ");
                     String confirmation = sc.next();
@@ -86,7 +95,7 @@ public class testMilestone3 {
                         System.out.print("Votre commande est en préparation...");
                         boolean valide = cuisinier.preparerCommande(commande);// Le cuisinier prépare la commande
 
-                        if(valide){
+                        if (valide) {
                             BddCommande.sauvegarderDansBdd(commande);
                             System.out.println("Votre commande est prête !");
                             commande = new Commande();
@@ -96,11 +105,11 @@ public class testMilestone3 {
                     }
                     break;
 
-                case 6:
+                case 7:
                     gerant.consulterStocks();  // Le Gérant consulte les stocks
                     break;
 
-                case 7:
+                case 8:
                     Serveur.bye(); // le serveur salut l'utilisateur en lui disant en revoir
                     return;
 

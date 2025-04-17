@@ -64,12 +64,24 @@ public class BddSetup {
                             ")"
             );
 
+            // Table des plat qui auront le meme id que leur commande pour si la commande contient plusieur plat
+            stmt.executeUpdate(
+                    "CREATE TABLE IF NOT EXISTS commande_plat (" +
+                            "commande_id INT NOT NULL, " +
+                            "plat_id INT NOT NULL, " +
+                            "FOREIGN KEY (commande_id) REFERENCES commandes(id), " +
+                            "FOREIGN KEY (plat_id) REFERENCES plats(id)" +
+                            ")"
+            );
+
+
             // Table des employés
             stmt.executeUpdate(
                     "CREATE TABLE IF NOT EXISTS employes (" +
                             "id INT AUTO_INCREMENT PRIMARY KEY, " +
                             "nom VARCHAR(100) NOT NULL, " +
-                            "role ENUM('Serveur','Cuisinier','Gérant') NOT NULL" +
+                            "prenom VARCHAR(100) NOT NULL, " +
+                            "role VARCHAR(100) NOT NULL" +
                             ")"
             );
 

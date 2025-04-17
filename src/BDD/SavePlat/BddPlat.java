@@ -53,4 +53,93 @@ public class BddPlat {
         }
     }
 
+    public static void chargeMenu(Menu menu) {
+        String sqlPlats = "SELECT * FROM plats";
+        String sqlIngredients = "SELECT ingredient, quantite_requise FROM plat_ingredients WHERE plat_id = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection(
+                BddSetup.geturlBdd(), DatabaseConnection.getUser(), DatabaseConnection.getPassword());
+             PreparedStatement psPlats = conn.prepareStatement(sqlPlats);
+             ResultSet rsPlats = psPlats.executeQuery();
+             PreparedStatement psIngredients = conn.prepareStatement(sqlIngredients)) {
+
+            while (rsPlats.next()) {
+                int id = rsPlats.getInt("id");
+                String nom = rsPlats.getString("nom");
+                double prix = rsPlats.getDouble("prix");
+                String type = rsPlats.getString("type");
+
+                // Récupération des ingrédients du plat
+                Map<String, Double> ingredients = new HashMap<>();
+                psIngredients.setInt(1, id);
+                try (ResultSet rsIng = psIngredients.executeQuery()) {
+                    while (rsIng.next()) {
+                        String ingredient = rsIng.getString("ingredient");
+                        double quantite = rsIng.getDouble("quantite_requise");
+                        ingredients.put(ingredient, quantite);
+                    }
+                }
+
+                // Création de l'objet Plat et ajout au menu
+                Plat plat = new Plat(id, nom, prix, type, ingredients);
+                menu.addPlat(plat);
+            }
+
+            System.out.println("✔️ Tous les plats ont été chargés depuis la base de données.");
+        } catch (SQLException e) {
+            System.err.println("❌ Erreur lors du chargement des plats : " + e.getMessage());
+        }
+    }
+
+    public static void supprimerPlatParNom(String nomPlat) {
+        String selectPlatIdSQL = "SELECT id FROM plats WHERE nom = ?";
+        String deleteCommandePlatSQL = "DELETE FROM commande_plat WHERE plat_id = ?";
+        String deleteIngredientsSQL = "DELETE FROM plat_ingredients WHERE plat_id = ?";
+        String deletePlatSQL = "DELETE FROM plats WHERE id = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection(
+                BddSetup.geturlBdd(), DatabaseConnection.getUser(), DatabaseConnection.getPassword())) {
+
+            conn.setAutoCommit(false); // Pour rollback en cas d’erreur
+
+            int platId;
+
+            // 1. Récupérer l'ID du plat
+            try (PreparedStatement selectStmt = conn.prepareStatement(selectPlatIdSQL)) {
+                selectStmt.setString(1, nomPlat);
+                ResultSet rs = selectStmt.executeQuery();
+                if (rs.next()) {
+                    platId = rs.getInt("id");
+                } else {
+                    System.out.println("Aucun plat trouvé avec le nom : " + nomPlat);
+                    return;
+                }
+            }
+
+            // 2. Supprimer les lignes dans commande_plat
+            try (PreparedStatement deleteCommandeStmt = conn.prepareStatement(deleteCommandePlatSQL)) {
+                deleteCommandeStmt.setInt(1, platId);
+                deleteCommandeStmt.executeUpdate();
+            }
+
+            // 3. Supprimer les ingrédients associés
+            try (PreparedStatement deleteIngredientsStmt = conn.prepareStatement(deleteIngredientsSQL)) {
+                deleteIngredientsStmt.setInt(1, platId);
+                deleteIngredientsStmt.executeUpdate();
+            }
+
+            // 4. Supprimer le plat
+            try (PreparedStatement deletePlatStmt = conn.prepareStatement(deletePlatSQL)) {
+                deletePlatStmt.setInt(1, platId);
+                deletePlatStmt.executeUpdate();
+            }
+
+            conn.commit();
+            System.out.println("Plat supprimé avec succès.");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
