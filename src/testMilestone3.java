@@ -53,6 +53,8 @@ public class testMilestone3 {
             System.out.println("8. Retirer ingredient");
             System.out.println("9. afficher employe");
             System.out.println("10. Ajouter employer");
+            System.out.println("11. Ajouter ingrédient");
+            System.out.println("12. supprimé plat du menu");
             System.out.println("-1. Quitter");
 
             int choix = sc.nextInt();
@@ -119,9 +121,11 @@ public class testMilestone3 {
                     System.out.print("quantite a supprime : ");
                     Double quantite = sc.nextDouble();
                     gerant.deleteIngredient(nom,quantite);
+                    break;
 
                 case 9:
                     gerant.afficherEmploye();
+                    break;
 
                 case 10:
                     System.out.print("Le métier du nouvelle employe (serveur, cuisinier, gerant) : ");
@@ -144,6 +148,22 @@ public class testMilestone3 {
                     } else {
                         System.out.println("Ce metier n'est pas possible veuillez réessayer !");
                     }
+                    break;
+
+
+                case 11:
+                    System.out.print("nom de l'ingredient : ");
+                    nom = sc.next();
+                    System.out.print("quantite a ajouter : ");
+                    quantite = sc.nextDouble();
+
+                    Gerant.ajouterIngredients(nom, quantite);
+                    break;
+
+                case 12 :
+
+                    gerant.supprimerPlatParNom(menu);
+                    break;
 
                 case -1:
                     Serveur.bye(); // le serveur salut l'utilisateur en lui disant en revoir

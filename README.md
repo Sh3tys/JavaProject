@@ -8,4 +8,6 @@
 - [x] Supprimer des ingrédients
 - [x] Sauvegarde des plats
 - [x] Bug : la suppression d'ingrédients
+- [ ] ajouter ingredient
+- [ ] delete plat menu
 - [x] Fin
