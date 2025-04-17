@@ -163,6 +163,7 @@ public class testMilestone3 {
                 case 12 :
 
                     gerant.supprimerPlatParNom(menu);
+                    BddPlat.chargeMenu(menu);
                     break;
 
                 case -1:
