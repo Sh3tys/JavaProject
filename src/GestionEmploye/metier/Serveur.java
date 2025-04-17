@@ -1,8 +1,8 @@
 package GestionEmploye.metier;
-import GestionEmploye.Employe;
-import GestionStock.Commande;
-import Backend.Menu;
-import Backend.Plat;
+
+import GestionEmploye.*;
+import GestionStock.*;
+import Backend.*;
 
 import java.util.Scanner;
 

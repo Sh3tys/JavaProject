@@ -1,8 +1,6 @@
 package BDD;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-// ou import java.sql.*;
+
+import java.sql.*;
 
 public class DatabaseConnection {
     private static String urlMysql = "jdbc:mysql://localhost:3306"; //Connexion a la base de donnée

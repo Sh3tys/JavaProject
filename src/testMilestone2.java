@@ -1,7 +1,7 @@
 import GestionStock.*;
 import BDD.*;
 import GestionEmploye.metier.*;
-import Backend.Menu;
+import Backend.*;
 import java.util.*;
 
 public class testMilestone2 {
@@ -30,7 +30,7 @@ public class testMilestone2 {
 
 
         //Initialise les plats
-        Gerant.ajoutPlat(menu, "pizaa", 5.99, "pizza");
+        //Gerant.ajoutPlat(menu, "pizaa", 5.99, "pizza");
 
         while (true) {
             System.out.println("");
@@ -60,7 +60,7 @@ public class testMilestone2 {
                     System.out.print("Type du Plat : ");
                     String type = sc.next();
 
-                    Gerant.ajoutPlat(menu, nom, prix, type);
+                    //Gerant.ajoutPlat(menu, nom, prix, type);
 
                     break;
 

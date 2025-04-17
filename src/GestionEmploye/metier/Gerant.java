@@ -1,9 +1,8 @@
 package GestionEmploye.metier;
-import GestionEmploye.Employe;
-import GestionStock.Commande;
-import Backend.Menu;
-import Backend.Plat;
-import GestionStock.Stock;
+
+import GestionEmploye.*;
+import GestionStock.*;
+import Backend.*;
 
 import java.util.*;
 
@@ -26,14 +25,14 @@ public class Gerant extends Employe {
     }
 
     // Ajouter un plat au menu si le plat n'existe pas déjà
-    public static void ajoutPlat(Menu menu, String nom, double prix, String type) {
+    public static void ajoutPlat(Menu menu, int id, String nom, double prix, String type) {
         String ingredients = "";
         double quantite = 0.0;
 
         if (platEstPresent(menu.getListPlats(), nom)) {
             System.out.println("Erreur : le plat existe déjà dans le menu !");
         } else {
-            Plat plat = new Plat(nom, prix, type);
+            Plat plat = new Plat(id, nom, prix, type,null);
             menu.addPlat(plat);  // Ajouter le plat à la liste du menu
             System.out.println("Le plat " + nom + " a été ajouté au menu !");
 

@@ -1,6 +1,6 @@
 package GestionEmploye;
 
-import GestionStock.Commande;
+import GestionStock.*;
 
 public abstract class Employe {
     protected int id;

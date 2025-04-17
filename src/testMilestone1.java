@@ -1,6 +1,5 @@
-import GestionStock.Commande;
-import Backend.Menu;
-import Backend.Plat;
+import GestionStock.*;
+import Backend.*;
 import java.util.*;
 
 public class testMilestone1 {
@@ -8,7 +7,7 @@ public class testMilestone1 {
         Scanner sc = new Scanner(System.in);
         Menu menu = new Menu();
         Commande commande = new Commande();
-
+        /*
         //PIZZA
         menu.addPlat(new Plat("3 fromages", 10.0, "pizza"));
         menu.addPlat(new Plat("Calzon", 18.99, "pizza"));
@@ -32,7 +31,7 @@ public class testMilestone1 {
         menu.addPlat(new Plat("Grappa", 12.89, "boisson"));
         menu.addPlat(new Plat("Mojito", 8.35, "boisson"));
         menu.addPlat(new Plat("Eau", 1.99, "boisson"));
-
+        */
 
         while (true) {
             System.out.println("");
@@ -63,7 +62,7 @@ public class testMilestone1 {
                         System.out.println("Erreur le plat n'a pas était mis dans le menu, il existe déjà !");
                     }
 
-                    menu.addPlat(new Plat(nom, prix, type));
+                    //menu.addPlat(new Plat(nom, prix, type));
                     System.out.println("Le plat : " + nom + " a correctement était mis dans le menu");
 
                     break;

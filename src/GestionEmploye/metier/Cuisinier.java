@@ -1,7 +1,8 @@
 package GestionEmploye.metier;
-import GestionEmploye.Employe;
+
+import GestionEmploye.*;
 import GestionStock.*;
-import Backend.Plat;
+import Backend.*;
 import java.util.Map;
 
 public class Cuisinier extends Employe {
@@ -10,7 +11,7 @@ public class Cuisinier extends Employe {
         super(id, nom, "Cuisinier");
     }
 
-    public void preparerCommande(Commande commande) {
+    public boolean preparerCommande(Commande commande) {
         // Supposons que les stocks sont suffisants au départ
         boolean stockSuffisant = true;
 
@@ -56,8 +57,11 @@ public class Cuisinier extends Employe {
             System.out.println("Commande préparée avec succès !");
             System.out.println("Total à payer : " + commande.getTotal() + "€");
 
+            return true;
+
         } else {
             System.out.println("Commande annulée. Stock insuffisant pour un ou plusieurs plats.");
+            return false;
         }
     }
 

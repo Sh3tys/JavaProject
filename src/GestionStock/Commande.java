@@ -1,6 +1,6 @@
 package GestionStock;
 
-import Backend.Plat;
+import Backend.*;
 import java.util.*;
 
 public class Commande {
