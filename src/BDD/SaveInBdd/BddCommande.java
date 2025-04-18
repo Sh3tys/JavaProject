@@ -1,7 +1,6 @@
-package BDD.SaveCommande;
+package BDD.SaveInBdd;
 
 import java.sql.*;
-import java.util.*;
 import BDD.*;
 import Backend.*;
 import GestionStock.*;

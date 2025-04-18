@@ -1,12 +1,7 @@
-import GestionStock.*;
 import BDD.*;
 import GestionEmploye.metier.*;
 import Backend.*;
-import BDD.SaveCommande.*;
-import BDD.SaveIngredient.*;
-import BDD.SaveEmploye.*;
-import BDD.SavePlat.BddPlat;
-import java.util.*;
+import BDD.SaveInBdd.*;
 
 public class initTest {
     public static void main(String[] args) {

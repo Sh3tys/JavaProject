@@ -1,14 +1,8 @@
 import GestionEmploye.Employe;
 import GestionStock.*;
-import BDD.*;
 import GestionEmploye.metier.*;
 import Backend.*;
-import BDD.SaveCommande.*;
-import BDD.SaveIngredient.*;
-import BDD.SaveEmploye.*;
-import BDD.SavePlat.*;
-
-import java.sql.SQLOutput;
+import BDD.SaveInBdd.*;
 import java.util.*;
 
 public class testMilestone3 {
@@ -55,6 +49,7 @@ public class testMilestone3 {
             System.out.println("10. Ajouter employer");
             System.out.println("11. Ajouter ingrédient");
             System.out.println("12. supprimé plat du menu");
+            System.out.println("13. supprimé un employe");
             System.out.println("-1. Quitter");
 
             int choix = sc.nextInt();
@@ -164,6 +159,15 @@ public class testMilestone3 {
 
                     gerant.supprimerPlatParNom(menu);
                     BddPlat.chargeMenu(menu);
+                    break;
+
+                case 13:
+                    gerant.afficherEmploye();
+                    System.out.print("Le nom de l'employé a supprimer : ");
+                    nom = sc.next();
+                    System.out.print("Le prenom de l'employé a supprimer : ");
+                    prenom = sc.next();
+                    gerant.deleteEmploye(nom, prenom);
                     break;
 
                 case -1:

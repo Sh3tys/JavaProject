@@ -1,4 +1,4 @@
-package BDD.SaveEmploye;
+package BDD.SaveInBdd;
 
 import BDD.*;
 import GestionEmploye.Employe;
@@ -77,5 +77,38 @@ public class BddEmploye {
             }
         }
     }
+
+    public static void supprimerEmployeParNomPrenom(String nom, String prenom) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("⚠Confirmation : Voulez-vous vraiment supprimer l'employé " + nom + " " + prenom + " ? (oui/non)");
+        String confirmation = scanner.nextLine();
+
+        if (!confirmation.equalsIgnoreCase("oui")) {
+            System.out.println("❌ Suppression annulée.");
+            return;
+        }
+
+        Connection conn = DatabaseConnection.getConnection(BddSetup.geturlBdd(),
+                DatabaseConnection.getUser(),
+                DatabaseConnection.getPassword());
+
+        String query = "DELETE FROM employes WHERE nom = ? AND prenom = ?";
+
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, nom);
+            stmt.setString(2, prenom);
+            int rowsAffected = stmt.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("✅ Employé " + nom + " " + prenom + " supprimé avec succès.");
+            } else {
+                System.out.println("❗ Aucun employé trouvé avec ce nom et prénom.");
+            }
+        } catch (SQLException e) {
+            System.err.println("Erreur lors de la suppression de l'employé : " + e.getMessage());
+        }
+    }
+
 
 }

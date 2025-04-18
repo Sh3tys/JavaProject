@@ -1,10 +1,12 @@
 package GestionEmploye.metier;
 
+import BDD.SaveInBdd.BddPlat;
 import GestionEmploye.*;
 import GestionStock.*;
 import Backend.*;
+import java.util.*;
 
-import java.util.Scanner;
+import static java.awt.SystemColor.menu;
 
 public class Serveur extends Employe {
 
@@ -29,6 +31,27 @@ public class Serveur extends Employe {
             System.out.println("Plat non trouvé.");
         }
     }
+
+    public void supprimerPlatDeCommande(Commande commande) {
+        System.out.println(nom + " souhaite supprimer un plat de la commande.");
+        afficherCommande(commande);  // Afficher la commande actuelle
+
+        // Demande du plat à supprimer
+        System.out.print("Veuillez entrer le nom du plat à supprimer : ");
+        Scanner sc = new Scanner(System.in);
+        String platNom = sc.nextLine();
+
+        // Recherche du plat dans la commande
+        Plat platChoisi = Commande.trouverPlatParNomDansCommande(commande, platNom);
+
+        if (platChoisi != null) {
+            commande.supprimerPlat(platChoisi);
+            System.out.println("✅ Le plat " + platChoisi.getNom() + " a été supprimé de la commande.");
+        } else {
+            System.out.println("❌ Plat non trouvé dans la commande.");
+        }
+    }
+
 
     public static void afficherMenu(Menu menu) {
         menu.afficherMenu();

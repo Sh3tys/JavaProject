@@ -1,4 +1,4 @@
-package BDD.SaveIngredient;
+package BDD.SaveInBdd;
 
 import BDD.*;
 import java.sql.*;

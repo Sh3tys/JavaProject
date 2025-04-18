@@ -1,7 +1,6 @@
-package BDD.SavePlat;
+package BDD.SaveInBdd;
 
 import java.sql.*;
-
 import BDD.*;
 import Backend.*;
 import java.util.*;

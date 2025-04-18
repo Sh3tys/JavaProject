@@ -1,11 +1,9 @@
 package GestionEmploye.metier;
 
-import BDD.SaveEmploye.BddEmploye;
-import BDD.SavePlat.BddPlat;
+import BDD.SaveInBdd.*;
 import GestionEmploye.*;
 import GestionStock.*;
 import Backend.*;
-
 import java.util.*;
 
 public class Gerant extends Employe {
@@ -32,6 +30,7 @@ public class Gerant extends Employe {
 
     // Ajouter un plat au menu si le plat n'existe pas déjà
     public static void ajoutPlat(Menu menu, int id, String nom, double prix, String type) {
+        Serveur.afficherMenu(menu);
         String ingredients = "";
         double quantite = 0.0;
 
@@ -75,7 +74,9 @@ public class Gerant extends Employe {
         Stock.afficherStock();
     }
 
-    public void supprimerPlatParNom(Menu menu) {
+    public static void supprimerPlatParNom(Menu menu) {
+        Scanner sc = new Scanner(System.in);
+
         Serveur.afficherMenu(menu);
 
         System.out.println("Entrez le nom du plat à supprimer :");
@@ -84,8 +85,13 @@ public class Gerant extends Employe {
         BddPlat.supprimerPlatParNom(nom);
     }
 
+
     public static void afficherEmploye(){
         BddEmploye.afficherTousLesEmployes();
+    }
+
+    public static void deleteEmploye(String nom, String prenom) {
+        BddEmploye.supprimerEmployeParNomPrenom(nom, prenom);
     }
 
     @Override

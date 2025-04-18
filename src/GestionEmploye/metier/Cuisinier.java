@@ -3,7 +3,7 @@ package GestionEmploye.metier;
 import GestionEmploye.*;
 import GestionStock.*;
 import Backend.*;
-import java.util.Map;
+import java.util.*;
 
 public class Cuisinier extends Employe {
 

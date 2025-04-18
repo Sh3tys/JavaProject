@@ -55,6 +55,33 @@ public class Commande {
         }
     }
 
+    public static Plat trouverPlatParNomDansCommande(Commande commande, String nomPlat) {
+        for (Plat plat : commande.getListPlats()) {
+            if (plat.getNom().equalsIgnoreCase(nomPlat)) {
+                return plat;
+            }
+        }
+        return null; // Aucun plat trouvé avec ce nom
+    }
+
+
+    public void supprimerPlat(Plat plat) {
+        if (listPlats.contains(plat)) {
+            // Restauration des ingrédients dans le stock
+            for (Map.Entry<String, Double> entry : plat.getIngredients().entrySet()) {
+                Stock.ajouterIngredient(entry.getKey(), entry.getValue());
+            }
+
+            // Suppression du plat et mise à jour du total
+            listPlats.remove(plat);
+            total -= plat.getPrix();
+
+            System.out.println("✅ Plat supprimé de la commande : " + plat.getNom());
+        } else {
+            System.out.println("❌ Le plat n'est pas dans la commande.");
+        }
+    }
+
     // Méthode pour afficher la commande
     public void afficher() {
         System.out.println("La commande : ");

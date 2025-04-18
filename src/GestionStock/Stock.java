@@ -1,5 +1,5 @@
 package GestionStock;
-import BDD.SaveIngredient.*;
+import BDD.SaveInBdd.*;
 
 public class Stock {
 
