@@ -8,8 +8,10 @@
 - [x] Supprimer des plats du menu
 - [x] Supprimer des ingrédients
 - [x] Sauvegarde des plats
-- [x] Bug : la suppression d'ingrédients
 - [x] ajouter ingredient
 - [x] delete plat menu
-- [x] Fin
-- affiche plats menu menu
+- [ ] Bug : la suppression d'ingrédients par gerant
+- [ ] Bug : la suppression d'ingrédients par validation de la commande
+- [ ] Fin
+
+
